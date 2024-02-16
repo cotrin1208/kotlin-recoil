@@ -1,0 +1,30 @@
+name: Deploy to Artifact Registry
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Cache Build Outputs
+        uses: actions/cache@v3
+        with:
+          path: build/js
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Set Up Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Deploy Package
+        run: |
+          chmod +x ./gradlew
+          ./gradlew publish
+        env:
+          ARTIFACT_REGISTRY_MAVEN_SECRET: ${{ secrets.ARTIFACT_REGISTRY_MAVEN_SECRET }}
