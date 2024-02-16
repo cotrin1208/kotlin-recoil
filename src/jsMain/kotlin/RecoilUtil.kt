@@ -3,6 +3,8 @@
 package wrapper.recoil
 
 import js.objects.jso
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.promise
 import wrapper.recoil.state.*
 import wrapper.recoil.types.AtomEffect
 import wrapper.recoil.types.Loadable
@@ -134,6 +136,28 @@ fun <T> selector(
     return selector(jso<SelectorOptionsWithValue<T>> {
         this.key = key
         this.get = get
+    })
+}
+
+/**
+ * Suspends the execution and returns a Recoil state based on the provided key and get function.
+ *
+ * @param key the key identifying the Recoil state
+ * @param get the function that retrieves the Recoil state value
+ * @return the Recoil state
+ * @param T the type parameter for the value of the Recoil state
+ */
+fun <T> suspendSelector(
+    key: String,
+    get: suspend GetOption.() -> T
+): RecoilState<T> {
+    return selector(jso<SelectorOptionsWithPromise<T>> {
+        this.key = key
+        this.get = { option: GetOption ->
+            MainScope().promise {
+                get(option)
+            }
+        }
     })
 }
 
