@@ -10,32 +10,51 @@ import kotlin.js.Promise
 
 fun <T, P> selectorFamily(
     key: String,
-    get: (P) -> GetOption.() -> T,
-    set: ((P) -> SetOption.(T) -> Unit)? = null
+    get: (P) -> GetOption.() -> T
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithValue<T, P>> {
         this.key = key
         this.get = get
-        set?.let { this.set = set }
+    })
+}
+
+fun <T, P> selectorFamily(
+    key: String,
+    get: (P) -> GetOption.() -> T,
+    set: (P) -> SetOption.(T) -> Unit
+): (P) -> RecoilValue<T> {
+    return selectorFamily(jso<SelectorFamilyOptionsWithValue<T, P>> {
+        this.key = key
+        this.get = get
+        this.set = set
+    })
+}
+
+fun <T, P> promiseSelectorFamily(
+    key: String,
+    get: (P) -> GetOption.() -> Promise<T>
+): (P) -> RecoilValue<T> {
+    return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
+        this.key = key
+        this.get = get
     })
 }
 
 fun <T, P> promiseSelectorFamily(
     key: String,
     get: (P) -> GetOption.() -> Promise<T>,
-    set: ((P) -> SetOption.(T) -> Unit)? = null
+    set: (P) -> SetOption.(T) -> Unit
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
         this.get = get
-        set?.let { this.set = set }
+        this.set = set
     })
 }
 
 fun <T, P> suspendSelectorFamily(
     key: String,
-    get: (P) -> (suspend GetOption.() -> T),
-    set: ((P) -> (suspend SetOption.(T) -> Unit))?
+    get: (P) -> (suspend GetOption.() -> T)
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
@@ -46,12 +65,27 @@ fun <T, P> suspendSelectorFamily(
                 }
             }
         }
-        set?.let {
-            this.set = { param: P ->
-                { option: SetOption, newValue: T ->
-                    MainScope().promise {
-                        set(param)(option, newValue)
-                    }
+    })
+}
+
+fun <T, P> suspendSelectorFamily(
+    key: String,
+    get: (P) -> (suspend GetOption.() -> T),
+    set: (P) -> (suspend SetOption.(T) -> Unit)
+): (P) -> RecoilValue<T> {
+    return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
+        this.key = key
+        this.get = { param: P ->
+            { option: GetOption ->
+                MainScope().promise {
+                    get(param)(option)
+                }
+            }
+        }
+        this.set = { param: P ->
+            { option: SetOption, newValue: T ->
+                MainScope().promise {
+                    set(param)(option, newValue)
                 }
             }
         }
