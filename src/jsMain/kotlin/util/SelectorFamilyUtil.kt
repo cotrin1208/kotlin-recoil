@@ -8,86 +8,102 @@ import kotlinx.coroutines.promise
 import state.*
 import kotlin.js.Promise
 
+inline fun <T, P> transformValueGetter(crossinline get: GetOption.(P) -> T): (P) -> (GetOption) -> T {
+    return { param ->
+        { option: GetOption ->
+            get(option, param)
+        }
+    }
+}
+
+inline fun <T, P> transformValueSetter(crossinline set: SetOption.(T, P) -> Unit): (P) -> (SetOption, T) -> Unit {
+    return { param: P ->
+        { option: SetOption, newValue: T ->
+            set(option, newValue, param)
+        }
+    }
+}
+
+inline fun <T, P> transformPromiseGetter(crossinline get: GetOption.(P) -> Promise<T>): (P) -> (GetOption) -> Promise<T> {
+    return { param: P ->
+        { option: GetOption ->
+            get(option, param)
+        }
+    }
+}
+
+inline fun <T, P> transformSuspendGetter(crossinline get: suspend GetOption.(P) -> T): (P) -> (GetOption) -> Promise<T> {
+    return { param: P ->
+        { option: GetOption ->
+            MainScope().promise {
+                get(option, param)
+            }
+        }
+    }
+}
+
 fun <T, P> selectorFamily(
     key: String,
-    get: (P) -> GetOption.() -> T
+    get: GetOption.(P) -> T
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithValue<T, P>> {
         this.key = key
-        this.get = get
+        this.get = transformValueGetter(get)
     })
 }
 
 fun <T, P> selectorFamily(
     key: String,
-    get: (P) -> GetOption.() -> T,
-    set: (P) -> SetOption.(T) -> Unit
+    get: GetOption.(P) -> T,
+    set: SetOption.(T, P) -> Unit
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithValue<T, P>> {
         this.key = key
-        this.get = get
-        this.set = set
+        this.get = transformValueGetter(get)
+        this.set = transformValueSetter(set)
     })
 }
 
 fun <T, P> promiseSelectorFamily(
     key: String,
-    get: (P) -> GetOption.() -> Promise<T>
+    get: GetOption.(P) -> Promise<T>
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
-        this.get = get
+        this.get = transformPromiseGetter(get)
     })
 }
 
 fun <T, P> promiseSelectorFamily(
     key: String,
-    get: (P) -> GetOption.() -> Promise<T>,
-    set: (P) -> SetOption.(T) -> Unit
+    get: GetOption.(P) -> Promise<T>,
+    set: SetOption.(T, P) -> Unit = { _, _ -> }
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
-        this.get = get
-        this.set = set
+        this.get = transformPromiseGetter(get)
+        this.set = transformValueSetter(set)
     })
 }
 
 fun <T, P> suspendSelectorFamily(
     key: String,
-    get: (P) -> (suspend GetOption.() -> T)
+    get: suspend GetOption.(P) -> T
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
-        this.get = { param: P ->
-            { option: GetOption ->
-                MainScope().promise {
-                    get(param)(option)
-                }
-            }
-        }
+        this.get = transformSuspendGetter(get)
     })
 }
 
 fun <T, P> suspendSelectorFamily(
     key: String,
-    get: (P) -> (suspend GetOption.() -> T),
-    set: (P) -> (suspend SetOption.(T) -> Unit)
+    get: suspend GetOption.(P) -> T,
+    set: SetOption.(T, P) -> Unit
 ): (P) -> RecoilValue<T> {
     return selectorFamily(jso<SelectorFamilyOptionsWithPromise<T, P>> {
         this.key = key
-        this.get = { param: P ->
-            { option: GetOption ->
-                MainScope().promise {
-                    get(param)(option)
-                }
-            }
-        }
-        this.set = { param: P ->
-            { option: SetOption, newValue: T ->
-                MainScope().promise {
-                    set(param)(option, newValue)
-                }
-            }
-        }
+        this.get = transformSuspendGetter(get)
+        this.set = transformValueSetter(set)
     })
 }
