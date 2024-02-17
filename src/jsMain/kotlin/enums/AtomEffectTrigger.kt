@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.enums
+package enums
 
 /**
  * External enum class representing the trigger for an atom effect.

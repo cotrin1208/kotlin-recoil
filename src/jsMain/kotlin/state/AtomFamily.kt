@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.state
+package state
 
 /**
  * Represents the options for an atom family.

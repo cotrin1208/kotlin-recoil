@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.react
+package react
 
 import react.FC
 import react.PropsWithChildren

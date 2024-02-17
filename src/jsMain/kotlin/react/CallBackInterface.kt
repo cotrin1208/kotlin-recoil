@@ -2,12 +2,12 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.state
+package react
 
-import wrapper.recoil.snapshot.Snapshot
-import wrapper.recoil.types.RefreshRecoilState
-import wrapper.recoil.types.ResetRecoilState
-import wrapper.recoil.types.SetRecoilState
+import snapshot.Snapshot
+import types.RefreshRecoilState
+import types.ResetRecoilState
+import types.SetRecoilState
 
 /**
  * Represents a callback interface for manipulating and accessing Recoil state.

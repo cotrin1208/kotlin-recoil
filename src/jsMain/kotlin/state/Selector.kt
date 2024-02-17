@@ -2,12 +2,12 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.state
+package state
 
-import wrapper.recoil.types.GetRecoilValue
-import wrapper.recoil.types.Loadable
-import wrapper.recoil.types.ResetRecoilState
-import wrapper.recoil.types.SetRecoilState
+import types.GetRecoilValue
+import types.Loadable
+import types.ResetRecoilState
+import types.SetRecoilState
 import kotlin.js.Promise
 
 /**

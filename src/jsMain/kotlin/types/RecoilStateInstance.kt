@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package wrapper.recoil.types
+package types
 
 import kotlin.reflect.KProperty
 

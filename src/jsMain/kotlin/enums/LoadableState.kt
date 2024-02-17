@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.enums
+package enums
 
 /**
  * Represents the state of a loadable entity.

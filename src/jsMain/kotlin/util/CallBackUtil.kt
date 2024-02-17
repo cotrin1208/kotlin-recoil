@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 
-package wrapper.recoil.util
+package util
 
-import wrapper.recoil.react.rawUseRecoilCallback
-import wrapper.recoil.state.CallBackInterface
+import react.rawUseRecoilCallback
+import react.CallBackInterface
 
 inline fun <T : Function<*>> useRecoilCallback(
     vararg dependencies: Any? = emptyArray(),

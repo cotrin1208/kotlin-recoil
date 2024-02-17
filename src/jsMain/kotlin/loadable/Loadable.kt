@@ -2,10 +2,10 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.loadable
+package loadable
 
-import wrapper.recoil.enums.LoadableState
-import wrapper.recoil.types.Loadable
+import enums.LoadableState
+import types.Loadable
 import kotlin.js.Promise
 
 /**
@@ -14,6 +14,7 @@ import kotlin.js.Promise
  * @param T the type of the entity being loaded
  */
 sealed external interface BaseLoadable<out T> {
+    val state: LoadableState
     val getValue: () -> T
     val toPromise: () -> Promise<T>
     val valueOrThrow: () -> T
@@ -29,7 +30,6 @@ sealed external interface BaseLoadable<out T> {
  * @param T the type of the content
  */
 external interface ValueLoadable<out T> : BaseLoadable<T> {
-
     val contents: T
     val valueMaybe: () -> T
     val errorMaybe: () -> Unit
@@ -42,7 +42,6 @@ external interface ValueLoadable<out T> : BaseLoadable<T> {
  * @param T the type of the entity.
  */
 external interface LoadingLoadable<out T> : BaseLoadable<T> {
-    val state: LoadableState
     val contents: Promise<T>
     val valueMaybe: () -> Unit
     val errorMaybe: () -> Unit
@@ -65,7 +64,6 @@ external interface LoadingLoadable<out T> : BaseLoadable<T> {
  * @see LoadableState
  */
 external interface ErrorLoadable<out T> : BaseLoadable<T> {
-    val state: LoadableState
     val contents: Any
     val valueMaybe: () -> Unit
     val errorMaybe: () -> Any

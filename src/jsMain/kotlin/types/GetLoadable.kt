@@ -1,6 +1,6 @@
-package wrapper.recoil.types
+package types
 
-import wrapper.recoil.state.RecoilValue
+import state.RecoilValue
 
 /**
  * Represents a utility class for obtaining the Loadable value of a RecoilValue.

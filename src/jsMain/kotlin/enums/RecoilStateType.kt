@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.enums
+package enums
 
 @Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING")
 // language=JavaScript

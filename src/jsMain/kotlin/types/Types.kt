@@ -1,9 +1,9 @@
-package wrapper.recoil.types
+package types
 
-import wrapper.recoil.loadable.BaseLoadable
-import wrapper.recoil.state.AtomEffectOption
-import wrapper.recoil.state.RecoilState
-import wrapper.recoil.state.RecoilValue
+import loadable.BaseLoadable
+import state.AtomEffectOption
+import state.RecoilState
+import state.RecoilValue
 
 typealias AtomEffect<T> = (AtomEffectOption<T>) -> Unit
 typealias ResetRecoilState = (RecoilState<out Any>) -> Unit

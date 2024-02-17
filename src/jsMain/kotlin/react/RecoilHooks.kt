@@ -2,15 +2,13 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.react
+package react
 
-import react.Dependencies
-import wrapper.recoil.state.CallBackInterface
-import wrapper.recoil.state.RecoilState
-import wrapper.recoil.state.RecoilValue
-import wrapper.recoil.types.Loadable
-import wrapper.recoil.types.LoadableStateInstance
-import wrapper.recoil.types.RecoilStateInstance
+import state.RecoilState
+import state.RecoilValue
+import types.Loadable
+import types.LoadableStateInstance
+import types.RecoilStateInstance
 
 /**
  * Retrieves the current value and setter function of a Recoil state.

@@ -2,11 +2,11 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.snapshot
+package snapshot
 
-import wrapper.recoil.enums.RecoilStateType
-import wrapper.recoil.state.RecoilValue
-import wrapper.recoil.types.*
+import enums.RecoilStateType
+import state.RecoilValue
+import types.*
 import kotlin.js.Promise
 
 /**

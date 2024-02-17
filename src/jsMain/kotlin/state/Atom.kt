@@ -2,11 +2,11 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.state
+package state
 
 import js.array.ReadonlyArray
-import wrapper.recoil.enums.AtomEffectTrigger
-import wrapper.recoil.types.*
+import enums.AtomEffectTrigger
+import types.*
 import kotlin.js.Promise
 
 /**

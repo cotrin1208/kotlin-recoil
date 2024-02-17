@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package wrapper.recoil.state
+package state
 
 import kotlin.js.Promise
 

@@ -2,7 +2,7 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.state
+package state
 
 /**
  * Represents a Recoil value.

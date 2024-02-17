@@ -1,6 +1,6 @@
-package wrapper.recoil.types
+package types
 
-import wrapper.recoil.state.RecoilValue
+import state.RecoilValue
 import kotlin.js.Promise
 
 /**

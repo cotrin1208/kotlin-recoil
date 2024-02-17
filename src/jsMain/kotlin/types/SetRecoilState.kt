@@ -1,8 +1,8 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package wrapper.recoil.types
+package types
 
-import wrapper.recoil.state.RecoilState
+import state.RecoilState
 
 /**
  * Represents a utility class for setting the value of a Recoil value.

@@ -2,9 +2,9 @@
 @file:JsNonModule
 @file:Suppress("unused")
 
-package wrapper.recoil.loadable
+package loadable
 
-import wrapper.recoil.types.Loadable
+import types.Loadable
 import kotlin.js.Promise
 
 /**
