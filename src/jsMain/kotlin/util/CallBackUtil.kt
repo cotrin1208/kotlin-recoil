@@ -14,3 +14,13 @@ inline fun <T : Function<*>> useRecoilCallback(
     }
     return rawUseRecoilCallback(fn, dependencies)
 }
+
+inline fun useRecoilCallback(
+    vararg dependencies: Any? = emptyArray(),
+    crossinline callback: CallBackInterface.() -> Unit
+): () -> Unit {
+    val fn = { callbackInterface: CallBackInterface ->
+        { callbackInterface.callback() }
+    }
+    return rawUseRecoilCallback(fn, dependencies)
+}

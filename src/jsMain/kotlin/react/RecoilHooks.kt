@@ -64,4 +64,4 @@ external fun <T> useRecoilStateLoadable(recoilState: RecoilState<T>): LoadableSt
  * @return the loadable value representing the state value
  * @param T the type of the value
  */
-external fun <T> useRecoilValueLoadable(recoilState: RecoilState<T>): Loadable<out T>
+external fun <T> useRecoilValueLoadable(recoilState: RecoilValue<T>): Loadable<out T>
