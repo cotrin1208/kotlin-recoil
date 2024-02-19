@@ -14,7 +14,8 @@ import kotlin.js.Promise
  * @param T the type of the entity being loaded
  */
 sealed external interface BaseLoadable<out T> {
-    val state: LoadableState
+    @JsName("state")
+    val rawState: String
     val getValue: () -> T
     val toPromise: () -> Promise<T>
     val valueOrThrow: () -> T

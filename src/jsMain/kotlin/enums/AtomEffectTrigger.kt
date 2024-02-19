@@ -10,7 +10,7 @@ package enums
  * @property get The trigger for a "get" operation.
  * @property set The trigger for a "set" operation.
  */
-@Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING")
+@Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING", "EnumEntryName")
 // language=JavaScript
 @JsName("""({get: 'get', set: 'set'})""")
 external enum class AtomEffectTrigger {
