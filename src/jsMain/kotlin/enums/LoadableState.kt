@@ -4,14 +4,25 @@
 
 package enums
 
-/**
- * Represents the state of a loadable entity.
- */
+sealed external interface LoadableState
+
 @Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING")
 // language=JavaScript
-@JsName("""({hasValue: 'hasValue', hasError: 'hasError', loading: 'loading'})""")
-external enum class LoadableState {
-    hasValue,
-    hasError,
+@JsName("""({hasValue: 'hasValue'})""")
+external enum class HasValue {
+    hasValue;
+}
+
+@Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING")
+// language=JavaScript
+@JsName("""({loading: 'loading'})""")
+external enum class Loading: LoadableState {
     loading;
+}
+
+@Suppress("NAME_CONTAINS_ILLEGAL_CHARS", "ENUM_CLASS_IN_EXTERNAL_DECLARATION_WARNING")
+// language=JavaScript
+@JsName("""({hasError: 'hasError'})""")
+external enum class HasError: LoadableState {
+    hasError;
 }
