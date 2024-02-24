@@ -9,7 +9,7 @@ import kotlin.js.Promise
 
 fun <T> atom(
     key: String,
-    default: T?,
+    default: T,
     vararg effects: AtomEffect<T> = emptyArray()
 ): RecoilState<T> {
     return atom(jso<AtomOptionsWithDefault<T>> {
