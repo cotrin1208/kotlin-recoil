@@ -5,7 +5,6 @@ package util
 import js.objects.jso
 import state.*
 import types.AtomEffect
-import types.Loadable
 import kotlin.js.Promise
 
 fun <T> atom(
@@ -20,36 +19,12 @@ fun <T> atom(
     })
 }
 
-fun <T> atom(
+fun <T> promiseAtom(
     key: String,
     default: Promise<T>?,
     vararg effects: AtomEffect<T> = emptyArray()
 ): RecoilState<T> {
     return atom(jso<AtomOptionsWithPromise<T>> {
-        this.key = key
-        default?.let { this.default = default }
-        this.effects = effects
-    })
-}
-
-fun <T> atom(
-    key: String,
-    default: RecoilValue<T>?,
-    vararg effects: AtomEffect<T> = emptyArray()
-): RecoilState<T> {
-    return atom(jso<AtomOptionsWithRecoilValue<T>> {
-        this.key = key
-        default?.let { this.default = default }
-        this.effects = effects
-    })
-}
-
-fun <T> atom(
-    key: String,
-    default: Loadable<T>?,
-    vararg effects: AtomEffect<T> = emptyArray()
-): RecoilState<T> {
-    return atom(jso<AtomOptionsWithLoadable<T>> {
         this.key = key
         default?.let { this.default = default }
         this.effects = effects

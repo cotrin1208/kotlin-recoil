@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.cotrin1208"
-version = "0.5.8"
+version = "0.5.9"
 
 repositories {
     mavenCentral()
