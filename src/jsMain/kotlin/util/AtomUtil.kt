@@ -14,7 +14,7 @@ fun <T> atom(
 ): RecoilState<T> {
     return atom(jso<AtomOptionsWithDefault<T>> {
         this.key = key
-        default?.let { this.default = default }
+        this.default = default
         this.effects = effects
     })
 }
