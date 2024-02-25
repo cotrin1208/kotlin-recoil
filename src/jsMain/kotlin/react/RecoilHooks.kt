@@ -65,3 +65,6 @@ external fun <T> useRecoilStateLoadable(recoilState: RecoilState<T>): LoadableSt
  * @param T the type of the value
  */
 external fun <T> useRecoilValueLoadable(recoilState: RecoilValue<T>): Loadable<out T>
+
+@JsName("useRecoilRefresher_UNSTABLE")
+external fun useRecoilRefresher(recoilValue: RecoilValue<*>): () -> Unit
