@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.cotrin1208"
-version = "0.5.11"
+version = "0.5.11-test"
 
 repositories {
     mavenCentral()
@@ -23,6 +23,7 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.682")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation(npm("recoil", "0.7.7"))
+                implementation(npm("firebase", "10.9.0"))
             }
         }
     }
